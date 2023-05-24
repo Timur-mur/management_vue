@@ -11,20 +11,6 @@
             style="align-items: center;"
         >
           <v-text-field
-              v-model="username"
-              color="black"
-              label="Имя"
-              variant="underlined"
-          ></v-text-field>
-
-          <v-text-field
-              v-model="last_name"
-              color="black"
-              label="Фамилия"
-              variant="underlined"
-          ></v-text-field>
-
-          <v-text-field
               v-model="email"
               color="black"
               label="Email"
@@ -85,14 +71,11 @@
 import axios from 'axios'
 import NavBar from "@/components/NavBar.vue";
 import {th} from "vuetify/locale";
-import axiosinstance from "@/services/axiosinstance";
 export default {
   name: "Registration",
   components: {NavBar},
   data(){
     return{
-      username: "",
-      last_name: "",
       email: "",
       password: "",
       password2: "",
@@ -108,10 +91,6 @@ export default {
   methods:{
     submitForm(){
       this.errors = []
-      if (this.username ==='')
-        this.errors.push('Введите имя')
-      if (this.last_name ==='')
-        this.errors.push('Введите фамилию')
       if (this.email ==='')
         this.errors.push('Введите e-mail')
       if (this.password ==='')
@@ -121,13 +100,10 @@ export default {
       // if (this.rules === '')
       //   this.errors.push('Загрузите аватар')
       if (!this.errors.length) {
-        axiosinstance
+        axios
             .post('auth/users/', {
           email: this.email,
-          username: this.username,
-          last_name: this.last_name,
           password: this.password,
-          avatar: this.rules,
         })
             .then(response => {
               localStorage.setItem("email",this.email)

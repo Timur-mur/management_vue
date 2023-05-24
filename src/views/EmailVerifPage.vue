@@ -36,7 +36,7 @@
 
 <script>
 import axios from "axios";
-import {th} from "vuetify/locale";
+import {mapGetters} from 'vuex'
 export default {
   name: "EmailVerifPage",
   data(){

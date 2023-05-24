@@ -53,7 +53,6 @@
 import axios from "axios";
 import {th} from "vuetify/locale";
 import NavBar from "@/components/NavBar.vue";
-import axiosinstance from "@/services/axiosinstance";
 export default {
   name: "LogInPage",
   components: {NavBar},
@@ -75,16 +74,18 @@ export default {
         email: this.email,
         password: this.password
       }
-      axiosinstance
+      axios
           .post("auth/jwt/create", formData)
           .then(response => {
-            const JWT = response.data.access
-            this.$store.commit('setToken', JWT)
-            axios.defaults.headers.common['Authorization'] = "Bearer " + JWT
+            sessionStorage.setItem("email", this.email)
+            localStorage.setItem('isAuthenticated', 'true')
+            this.$store.commit('setToken', response.data.access)
+            this.$store.commit('setRefreshToken', response.data.refresh)
+            axios.defaults.headers.common['Authorization'] = "Bearer " + response.data.access
             this.$router.push("/")
           })
           .catch(error => {
-            this.errors = error.response.data;
+            this.errors.push('Проверьте корректность введенных данных.')
           })
     }
   }

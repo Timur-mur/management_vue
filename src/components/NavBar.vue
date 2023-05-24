@@ -49,6 +49,7 @@ export default {
   computed:{
     ...mapGetters({
       isAuthenticated: "isAuthenticated",
+      email: "email",
     }),
   },
 }

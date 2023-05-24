@@ -37,6 +37,7 @@
 <script>
 import axios from "axios";
 import NavBar from "@/components/NavBar.vue";
+import {mapGetters} from "vuex";
 export default {
   name: "Activate",
   components: {NavBar},
@@ -44,12 +45,11 @@ export default {
     return{
       uid: this.$route.params.uid,
       token: this.$route.params.token,
-      email: localStorage.getItem('email'),
+      email: mapGetters(['email']),
       send: false
     }
   },
   mounted() {
-    console.log(this.token)
     if( this.uid !== undefined && this.token !== undefined){
       if(this.uid.length > 0 && this.token.length > 0 )
         this.activate()
