@@ -5,12 +5,14 @@ import store from './store'
 import vuetify from './plugins/vuetify'
 import './interceptors/axios'
 import { loadFonts } from './plugins/webfontloader'
+import VueApexCharts from 'vue3-apexcharts';
 
 
 loadFonts()
 
 createApp(App)
-  .use(router)
-  .use(store)
-  .use(vuetify)
-  .mount('#app')
+    .use(router)
+    .use(store)
+    .use(vuetify)
+    .use(VueApexCharts)
+    .mount('#app')

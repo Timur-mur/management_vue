@@ -15,6 +15,7 @@ axios.interceptors.response.use( resp=> resp, async error =>{
             localStorage.setItem('JWT', JWT)
             this.$store.commit('setToken', JWT)
             axios.defaults.headers.common['Authorization'] = "Bearer " + localStorage.getItem('JWT')
+            location.reload()
             return axios(error.config)
         }
     }

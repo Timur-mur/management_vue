@@ -11,8 +11,9 @@
     </v-list>
     <v-divider></v-divider>
     <v-list density="compact" nav>
+      <v-list-item v-if="role === 1" prepend-icon="mdi-information" title="Страница администратора" value="myfiles" href="/admin_page"></v-list-item>
       <v-list-item prepend-icon="mdi-folder" title="Все задачи" value="myfiles" href="/all_tasks"></v-list-item>
-      <v-list-item prepend-icon="mdi-folder" title="Мои задачи" value="shared"></v-list-item>
+      <v-list-item prepend-icon="mdi-folder" title="Мои задачи" value="shared" href="/executor_tasks"></v-list-item>
       <v-list-item prepend-icon="mdi-chat" title="Мессенджер" value="starred"></v-list-item>
     </v-list>
   </v-navigation-drawer>
