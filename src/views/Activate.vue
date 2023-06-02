@@ -1,5 +1,6 @@
 <template>
   <NavBar></NavBar>
+  <v-main>
   <br><br>
   <div class="d-flex justify-center" v-if="uid === undefined ||uid.length === 0 " >
     <v-card width="500px">
@@ -32,6 +33,7 @@
       </div>
     </v-card>
   </div>
+  </v-main>
 </template>
 
 <script>

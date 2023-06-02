@@ -1,6 +1,8 @@
 <template>
   <NavBar></NavBar>
   <SideBar v-if="isAuthenticated"></SideBar>
+  <v-main>
+  </v-main>
 </template>
 
 <script>
@@ -22,12 +24,16 @@ export default {
     ...mapGetters(['first_name', 'last_name'])
   },
   async mounted() {
-    await this.user_id_func()
-    if(this.$store.getters.first_name === "" && this.$store.getters.last_name === "" && this.$store.getters.isAuthenticated === true){
-      this.$router.push("/fill_user_info")
-    }
-    else {
-      this.$router.push("/all_tasks")
+    if (this.$store.getters.isAuthenticated !== false)
+    {
+      await this.user_id_func()
+      console.log(this.$store.getters.avatar)
+      if((this.$store.getters.avatar === null || this.$store.getters.first_name === "" || this.$store.getters.last_name === "") && this.$store.getters.isAuthenticated === true){
+        this.$router.push("/fill_user_info")
+      }
+      else {
+        this.$router.push("/all_tasks")
+      }
     }
   },
   methods: mapActions(['user_id_func']),

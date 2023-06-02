@@ -1,5 +1,6 @@
 <template>
   <NavBar></NavBar>
+  <v-main>
     <div class="d-flex justify-center align-center text-center h-100vh">
       <div>
         <v-img src="../assets/images/background/errorimg.svg" width="500" alt="404" />
@@ -8,6 +9,7 @@
         <v-btn flat color="primary" class="mb-4" to="/">На главную</v-btn>
       </div>
     </div>
+  </v-main>
 </template>
 
 <script>

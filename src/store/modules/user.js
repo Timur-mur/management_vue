@@ -10,6 +10,7 @@ export default {
         first_name: '',
         last_name: '',
         role: null,
+        avatar: '',
     },
     actions:{
         async user_id_func(ctx){
@@ -18,6 +19,7 @@ export default {
             let first_name = ''
             let last_name = ''
             let role = ''
+            let avatar = ''
             await axios
                 .get('auth/users/me')
                 .then(response => {
@@ -31,8 +33,9 @@ export default {
                     first_name = response.data.first_name
                     last_name = response.data.last_name
                     role = response.data.role
+                    avatar = response.data.avatar
                 })
-            const payload = {'user_id': user_id, 'first_name': first_name, 'last_name':last_name, 'role': role}
+            const payload = {'user_id': user_id, 'first_name': first_name, 'last_name':last_name, 'role': role, 'avatar': avatar}
             ctx.commit('getuserid', payload)
         },
     },
@@ -76,6 +79,7 @@ export default {
             state.first_name = payload.first_name
             state.last_name = payload.last_name
             state.role = payload.role
+            state.avatar = payload.avatar
         },
         getuserfullname(state, payload){
             state.first_name = payload.first_name
@@ -91,5 +95,6 @@ export default {
         first_name: (state) => state.first_name,
         last_name: (state) => state.last_name,
         role: (state) => state.role,
+        avatar: (state) => state.avatar,
     },
 }

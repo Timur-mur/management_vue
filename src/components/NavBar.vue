@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-app-bar style="box-shadow: none; border-bottom: 1px lightgray solid">
     <v-toolbar
         dark
         prominent
@@ -15,7 +15,7 @@
       </v-btn>
     </v-toolbar>
     <v-divider></v-divider>
-  </div>
+  </v-app-bar>
 </template>
 
 <script>

@@ -77,8 +77,9 @@ export default {
       // if (this.rules === '')
       //   this.errors.push('Загрузите аватар')
       if (!this.errors.length) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer'
         axios
-            .post('auth/users/', {
+            .post('/auth/users/', {
           email: this.email,
           password: this.password,
         })
@@ -87,7 +88,7 @@ export default {
               this.$router.push('email_send')
             })
             .catch(error => {
-              this.errors = error.response.data;
+              this.errors = error.data;
             })
       }
     }

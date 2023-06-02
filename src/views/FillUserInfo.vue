@@ -1,5 +1,6 @@
 <template>
   <NavBar></NavBar>
+  <v-main>
   <div class="main">
     <v-card
         class="mx-auto"
@@ -25,9 +26,10 @@
         ></v-text-field>
 
         <v-file-input
-            :rules="rules"
+            v-model="avatar"
+            ref="avatar"
             color="black"
-            accept="image/png, image/jpeg, image/bmp"
+            accept="image/jpg"
             placeholder="Загрузите аватар"
             prepend-icon="mdi-camera"
             label="Аватар"
@@ -52,6 +54,7 @@
       </v-card-actions>
     </v-card>
   </div>
+  </v-main>
 </template>
 
 <script>
@@ -65,11 +68,13 @@ export default {
     return{
       first_name: '',
       last_name: '',
-      rules: '',
+      avatar: [],
       errors: {},
     }
   },
   mounted() {
+    this.first_name = this.$store.getters.first_name
+    this.last_name = this.$store.getters.last_name
   },
   methods:{
     submitform(){
@@ -78,6 +83,11 @@ export default {
           .post('api/user/fillinfo/'+ this.$store.getters.user_id +'/', {
             first_name: this.first_name,
             last_name: this.last_name,
+            avatar: this.$refs.avatar.files[0],
+          },{
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
           })
           .then(response => {
             const payload = {'first_name': this.first_name, 'last_name': this.last_name}

@@ -9,7 +9,7 @@
         </div>
       </div>
       <div class="mt-6">
-        <apexchart type="bar" height="370px" :options="chartOptions.chartOptions" :series="chartOptions.series">
+        <apexchart type="bar" height="370px">
         </apexchart>
       </div>
     </v-card-item>

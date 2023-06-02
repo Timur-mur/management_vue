@@ -9,6 +9,8 @@ import FillUserInfo from "@/views/FillUserInfo.vue";
 import AllTasks from "@/views/AllTasks.vue";
 import ExecutorTasks from "@/views/ExecutorTasks.vue";
 import AdminPage from "@/views/AdminPage.vue";
+import Chat from "@/views/Chat.vue";
+import TasksComponent from "@/views/TasksComponent.vue";
 const routes = [
   {path: '/', name: 'home', component: Company},
   {path: '/:pathMatch(.*)*', name: 'Error', component: PageNotFound},
@@ -17,9 +19,10 @@ const routes = [
   {path: '/email_send', name: 'email_send', component: EmailVerifPage},
   {path: '/log_in', name: 'LogInPage', component: LogInPage},
   {path: '/fill_user_info', name: 'FillUserInfo', component: FillUserInfo},
-  {path: '/all_tasks', name: 'AllTasks', component: AllTasks},
+  {path: '/all_tasks', name: 'AllTasks', component: TasksComponent},
   {path: '/executor_tasks', name: 'executor_Tasks', component: ExecutorTasks},
   {path: '/admin_page', name: 'Admin_page', component: AdminPage},
+  {path: '/chat', name: 'Chat', component: Chat}
 ]
 
 const router = createRouter({
