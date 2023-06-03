@@ -10,12 +10,12 @@ axios.interceptors.response.use( resp=> resp, async error =>{
     if(error.response.status === 401 && !refresh){
         refresh = true;
         const {status, data} = await axios.post('/auth/jwt/refresh/', input_token)
+        location.reload()
         if(status === 200){
             const JWT = data.access
             localStorage.setItem('JWT', JWT)
             this.$store.commit('setToken', JWT)
             axios.defaults.headers.common['Authorization'] = "Bearer " + localStorage.getItem('JWT')
-            location.reload()
             return axios(error.config)
         }
     }

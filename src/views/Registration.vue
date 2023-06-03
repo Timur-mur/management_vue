@@ -77,7 +77,6 @@ export default {
       // if (this.rules === '')
       //   this.errors.push('Загрузите аватар')
       if (!this.errors.length) {
-        axios.defaults.headers.common['Authorization'] = 'Bearer'
         axios
             .post('/auth/users/', {
           email: this.email,

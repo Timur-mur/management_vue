@@ -2,7 +2,7 @@
   <SideBar></SideBar>
   <NavBar></NavBar>
   <v-main>
-  <AllTasks/>
+    <AllTasks/>
   <v-card elevation="10" class="" style="display: block; margin-left: auto; margin-right: auto; margin-top: 50px" max-width="85%">
     <v-card-item class="pa-6">
       <v-card-title class="text-h5 pt-sm-2 pb-7">Все сотрудники</v-card-title>
@@ -26,11 +26,6 @@
             </div>
           </td>
           <td>
-<!--            <v-select v-if="item.role !== 1"-->
-<!--                      v-model="role[item.role]"-->
-<!--                      :items="['Администратор', 'Продажник', 'Разработчик', 'Пользователь']"-->
-<!--                      variant="underlined"-->
-<!--            ></v-select>-->
             <h6 class="text-body-1 text-muted" > {{ role[item.role] }}
                 <v-dialog v-if="item.role !==1"
                     v-model="dialog"
@@ -64,7 +59,7 @@
                     <v-divider></v-divider>
                     <v-card-actions>
                       <v-btn color="blue-darken-1" variant="text" @click="dialog = false"> Закрыть </v-btn>
-                      <v-btn color="blue-darken-1" variant="text" @click="dialog = false; this.EditEmployee(item.id)"> Сохранить </v-btn>
+                      <v-btn color="blue-darken-1" variant="text" @click="dialog = false; this.EditEmployee(item.id, item.role)"> Сохранить </v-btn>
                     </v-card-actions>
                   </v-card>
                 </v-dialog>
@@ -102,6 +97,7 @@ export default {
         3 : 'Разработчик',
         4 : 'Пользователь',
       },
+      tasks: null,
     }
   },
   mounted() {
@@ -117,7 +113,7 @@ export default {
             console.log(this.users)
           })
     },
-    EditEmployee(user_id){
+    EditEmployee(user_id, role_id){
       console.log(this.dialogm1)
       const formData = {
           role: this.dialogm1
@@ -125,7 +121,7 @@ export default {
       axios.defaults.headers.common['Authorization'] = "Bearer " +  this.$store.getters.JWT
       axios.post('api/user/edit_employee/'+ user_id + '/', formData)
           .then(response =>{
-
+              this.role[role_id] = this.role[this.dialogm1]
           })
     }
   },

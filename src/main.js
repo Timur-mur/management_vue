@@ -8,11 +8,10 @@ import { loadFonts } from './plugins/webfontloader'
 import VueApexCharts from 'vue3-apexcharts';
 
 
-loadFonts()
-
 createApp(App)
     .use(router)
     .use(store)
+    .use(loadFonts)
     .use(vuetify)
     .use(VueApexCharts)
     .mount('#app')

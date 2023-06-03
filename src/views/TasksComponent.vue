@@ -2,7 +2,7 @@
   <SideBar/>
   <NavBar/>
   <v-main class="main">
-    <!--    <Histogram_of_tasks></Histogram_of_tasks>-->
+    <Histogram_of_tasks></Histogram_of_tasks>
     <v-card elevation="10"  style="display: block; margin-left: auto; margin-right: auto; margin-top: 50px" max-width="85%">
       <v-card-item class="pa-6">
         <v-card-title class="text-h5 pt-sm-2 pb-7 d-flex align-center">Свободные задачи</v-card-title>
@@ -12,7 +12,7 @@
             <th class="text-subtitle-1 font-weight-bold">Задача</th>
             <th class="text-subtitle-1 font-weight-bold">Дедлайн</th>
             <th class="text-subtitle-1 font-weight-bold">Статус</th>
-            <th class="text-subtitle-1 font-weight-bold text-right">Приоритет</th>
+            <th class="text-subtitle-1 font-weight-bold text-right">Комментарий</th>
           </tr>
           </thead>
           <tbody>
@@ -49,11 +49,12 @@
 <script>
 import NavBar from "@/components/NavBar.vue";
 import SideBar from "@/components/SideBar.vue";
+import Histogram_of_tasks from "@/components/Histogram/Histogram_of_tasks.vue";
 import axios from "axios";
 
 export default {
   name: "TasksComponent",
-  components: {SideBar, NavBar},
+  components: {SideBar, NavBar, Histogram_of_tasks},
   data(){
     return{
       tasks: null,
