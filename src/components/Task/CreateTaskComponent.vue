@@ -1,8 +1,16 @@
 <template>
-  <v-row justify="center" style="display: block;" v-if="this.$store.getters.role === 1 || this.$store.getters.role === 2">
+  <v-row style="margin-top: 4px" v-if="this.$store.getters.role === 1 || this.$store.getters.role === 2">
     <v-dialog v-model="dialog" persistent width="60%">
       <template v-slot:activator="{ props }">
-        <v-btn size="30" style="width: 40px; height: 40px; box-shadow: none;  float: right; margin-right: 15px;" class="b-icon" v-bind="props"><v-icon>mdi-plus</v-icon></v-btn>
+          <v-icon
+              size="30"
+              class="b-icon d-flex align-center"
+              style="margin-top: 5px; margin-right: 20px"
+              color="white"
+              v-bind="props"
+          >
+            mdi-plus
+          </v-icon>
       </template>
       <v-card>
         <v-card-title>
@@ -25,6 +33,10 @@
                     required
                 ></v-text-field>
               </v-col>
+              <v-col cols="12" sm="6" md="4">
+                Дедлайн
+                <Datepicker v-model="picker"/>
+              </v-col>
               <v-col cols="12">
                 <v-text-field
                     label="Описание задачи"
@@ -32,19 +44,15 @@
                     required
                 ></v-text-field>
               </v-col>
-              <v-col>
-                Дедлайн
-                <Datepicker v-model="picker"/>
-              </v-col>
             </v-row>
           </v-container>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="primary" variant="text" @click="dialog = false">
+          <v-btn color="red" variant="text" @click="dialog = false">
             Закрыть
           </v-btn>
-          <v-btn color="primary" variant="text" @click="dialog = false; this.create_new_task()">
+          <v-btn color="success" variant="text" @click="dialog = false; this.create_new_task()">
             Добавить
           </v-btn>
         </v-card-actions>
@@ -108,7 +116,6 @@ export default {
 .b-icon {
   color: #333;
   margin: 2px 0 0 50px;
-  border: 1px solid transparent;
   border-radius: 12px;
   cursor: pointer;
   display: inline-block;

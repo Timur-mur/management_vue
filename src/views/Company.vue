@@ -1,8 +1,30 @@
 <template>
-  <NavBar></NavBar>
-  <SideBar v-if="isAuthenticated"></SideBar>
+  <div>
+    <v-toolbar
+        color="black"
+        dark
+        prominent
+    >
+
+      <v-toolbar-title style="color: #4caf50; margin-left: 100px; font-size: 25px">Werth</v-toolbar-title>
+
+      <v-btn
+          style="color: #4caf50"
+          href="/log_in"
+      >
+        Вход
+      </v-btn>
+      <v-btn
+          style="color: #4caf50"
+          href="/registration"
+      >
+        Регистрация
+      </v-btn>
+    </v-toolbar>
+  </div>
   <v-main>
   </v-main>
+  <Footer></Footer>
 </template>
 
 <script>
@@ -11,9 +33,10 @@ import SideBar from "@/components/SideBar.vue";
 import {mapActions, mapGetters, mapState} from "vuex";
 import axios from "axios";
 import {th, tr} from "vuetify/locale";
+import Footer from "@/components/Footer.vue";
 export default {
   name: "Company",
-  components: {SideBar, NavBar},
+  components: {Footer, SideBar, NavBar},
   data(){
     return{
       errors: {},

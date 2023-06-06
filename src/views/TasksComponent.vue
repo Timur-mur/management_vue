@@ -1,18 +1,29 @@
 <template>
   <SideBar/>
   <NavBar/>
-  <v-main class="main">
-    <Histogram_of_tasks></Histogram_of_tasks>
-    <v-card elevation="10"  style="display: block; margin-left: auto; margin-right: auto; margin-top: 50px" max-width="85%">
+  <v-main style="background: #e7e7e7">
+    <v-card elevation="10"  color="black" style="display: block; margin-left: auto; margin-right: auto; margin-top: 50px; margin-bottom: 30px" max-width="85%">
       <v-card-item class="pa-6">
-        <v-card-title class="text-h5 pt-sm-2 pb-7 d-flex align-center">Свободные задачи</v-card-title>
-        <v-table class="month-table">
+        <v-card-title class="text-subtitle-3 font-weight-light d-flex align-center">
+          <v-sheet
+              color="success"
+              dark
+              max-height="110"
+              width="auto"
+              class="px-5 py-3"
+              style="margin-right: 20px; border-radius: 8px"
+          >
+            <v-icon size="25" icon="mdi-clipboard-plus"></v-icon>
+          </v-sheet>
+          Свободные задачи
+        </v-card-title>
+        <v-table style="background: black; color: white">
           <thead>
-          <tr>
-            <th class="text-subtitle-1 font-weight-bold">Задача</th>
-            <th class="text-subtitle-1 font-weight-bold">Дедлайн</th>
-            <th class="text-subtitle-1 font-weight-bold">Статус</th>
-            <th class="text-subtitle-1 font-weight-bold text-right">Комментарий</th>
+          <tr class="text-subtitle-3 font-weight-light" style="color: white">
+            <th class="text-subtitle-3 font-weight-light" style="color: white">Задача</th>
+            <th class="text-subtitle-3 font-weight-light" style="color: white">Дедлайн</th>
+            <th class="text-subtitle-3 font-weight-light" style="color: white">Статус</th>
+            <th class="text-subtitle-3 font-weight-light text-right" style="color: white">Комментарий</th>
           </tr>
           </thead>
           <tbody>
@@ -35,7 +46,7 @@
             </td>
             <td>
               <v-btn color="green"
-                     @click="this.Executor_get_task(item.id); item.task_status === 2"> Взять в работу
+                     @click="this.Executor_get_task(item.id); item.task_status = 2"> Взять в работу
               </v-btn>
             </td>
           </tr>
@@ -43,7 +54,9 @@
         </v-table>
       </v-card-item>
     </v-card>
+    <Histogram_of_tasks></Histogram_of_tasks>
   </v-main>
+  <Footer></Footer>
 </template>
 
 <script>
@@ -51,10 +64,11 @@ import NavBar from "@/components/NavBar.vue";
 import SideBar from "@/components/SideBar.vue";
 import Histogram_of_tasks from "@/components/Histogram/Histogram_of_tasks.vue";
 import axios from "axios";
+import Footer from "@/components/Footer.vue";
 
 export default {
   name: "TasksComponent",
-  components: {SideBar, NavBar, Histogram_of_tasks},
+  components: {Footer, SideBar, NavBar, Histogram_of_tasks},
   data(){
     return{
       tasks: null,
@@ -88,6 +102,7 @@ export default {
       }
       axios.post('api/task/employee_get_task/' + task_id, formData)
           .then( response => {
+            this.tasks = this.tasks.filter(el => el.id !== task_id)
             console.log("OK")
           })
           .catch( error => {

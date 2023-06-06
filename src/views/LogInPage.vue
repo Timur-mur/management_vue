@@ -10,11 +10,11 @@
               <v-row class="d-flex mb-3">
                 <v-col cols="12">
                   <v-label class="font-weight-bold mb-1">E-Mail</v-label>
-                  <v-text-field v-model="email"  variant="outlined" hide-details color="primary"></v-text-field>
+                  <v-text-field v-model="email"  variant="outlined" hide-details color="success"></v-text-field>
                 </v-col>
                 <v-col cols="12">
                   <v-label class="font-weight-bold mb-1">Пароль</v-label>
-                  <v-text-field v-model="password" variant="outlined" type="password"  hide-details color="primary"></v-text-field>
+                  <v-text-field v-model="password" variant="outlined" type="password"  hide-details color="success"></v-text-field>
                 </v-col>
                 <v-col cols="12" class="pt-0">
                 </v-col>
@@ -33,13 +33,13 @@
                   ></v-list-item>
                 </v-list>
                 <v-col cols="12" class="pt-0">
-                  <v-btn color="primary" size="large" block   flat @click="SignForm">Войти</v-btn>
+                  <v-btn color="success" size="large" block   flat @click="SignForm">Войти</v-btn>
                 </v-col>
               </v-row>
               <h6 class="text-body-1 text-muted font-weight-regular d-flex justify-center align-center mt-3">
                 Не зарегистрированы?
                 <RouterLink to="/registration"
-                            class="text-primary text-decoration-none text-body-1 opacity-1 font-weight-medium pl-2">
+                            class="text-success text-decoration-none text-body-1 opacity-1 font-weight-medium pl-2">
                   Зарегистрироваться</RouterLink>
               </h6>
             </v-card-item>

@@ -1,5 +1,5 @@
 <template>
-  <v-row justify="center">
+  <v-row>
     <v-dialog
         v-model="dialog"
         persistent
@@ -8,6 +8,7 @@
       <template v-slot:activator="{ props }">
         <v-btn
             v-bind="props"
+            color="red"
         >
           Вернуть
         </v-btn>
@@ -33,14 +34,14 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
-              color="primary"
+              color="red"
               variant="text"
               @click="dialog = false"
           >
             Закрыть
           </v-btn>
           <v-btn
-              color="primary"
+              color="success"
               variant="text"
               @click="dialog = false; this.returnTask(task_id)"
           >
@@ -59,6 +60,7 @@ export default {
   name: "ReturnTask",
   props:{
     task_id: null,
+    task_status: null,
   },
   data(){
     return{
@@ -67,11 +69,12 @@ export default {
     }
   },
   methods:{
-    returnTask(task_id){
+    returnTask(task_id, task_status){
       const formData = {
         task_status: 2,
         task_flag: this.text
       }
+      task_status = 2
       axios.defaults.headers.common['Authorization'] = "Bearer " + this.$store.getters.JWT
       axios
           .post('api/task/return_task/' + task_id, formData)

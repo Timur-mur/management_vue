@@ -7,7 +7,7 @@
       >
         <template v-slot:activator="{ props }">
           <v-btn
-              color="grey"
+              color="success"
               v-bind="props"
           >
             Сдать задачу
@@ -34,14 +34,14 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn
-                color="primary"
+                color="red"
                 variant="text"
                 @click="dialog = false"
             >
               Закрыть
             </v-btn>
             <v-btn
-                color="primary"
+                color="success"
                 variant="text"
                 @click="dialog = false; this.SendTaskToCheck(task_id)"
             >
@@ -69,6 +69,8 @@ export default {
   },
   methods:{
     SendTaskToCheck(task_id){
+      if(!this.$refs.file.files[0])
+        return
       const formData = {
         task_status: 3,
         task_file: this.$refs.file.files[0]
@@ -81,7 +83,6 @@ export default {
             }
           })
           .then(response => {
-
           })
     }
   }

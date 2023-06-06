@@ -9,15 +9,15 @@
               <v-row class="d-flex mb-3">
                 <v-col cols="12">
                   <v-label class="font-weight-bold mb-1">E-mail</v-label>
-                  <v-text-field v-model="email" variant="outlined" type="email" hide-details color="primary"></v-text-field>
+                  <v-text-field v-model="email" variant="outlined" type="email" hide-details color="success"></v-text-field>
                 </v-col>
                 <v-col cols="12">
                   <v-label class="font-weight-bold mb-1">Пароль</v-label>
-                  <v-text-field v-model="password" variant="outlined" type="password" hide-details color="primary"></v-text-field>
+                  <v-text-field v-model="password" variant="outlined" type="password" hide-details color="success"></v-text-field>
                 </v-col>
                 <v-col cols="12">
                   <v-label class="font-weight-bold mb-1">Подтвердите пароль</v-label>
-                  <v-text-field v-model="password2" variant="outlined" type="password" hide-details color="primary"></v-text-field>
+                  <v-text-field v-model="password2" variant="outlined" type="password" hide-details color="success"></v-text-field>
                 </v-col>
                 <v-list lines="one">
                   <v-list-item
@@ -27,13 +27,13 @@
                   ></v-list-item>
                 </v-list>
                 <v-col cols="12" >
-                  <v-btn color="primary" size="large" block   flat @click="submitForm"> Зарегистрироваться </v-btn>
+                  <v-btn color="success" size="large" block   flat @click="submitForm"> Зарегистрироваться </v-btn>
                 </v-col>
               </v-row>
-              <h6 class="text-body-1 text-muted font-weight-medium d-flex justify-center align-center mt-3">
+              <h6 class="text-body-1 text-muted font-weight-regular d-flex justify-center align-center mt-3">
                 Уже зарегистрированы?
                 <RouterLink to="/log_in"
-                            class="text-primary text-decoration-none text-body-1 opacity-1 font-weight-medium pl-2">
+                            class="text-success text-decoration-none text-body-1 opacity-1 font-weight-medium pl-2">
                   Войти</RouterLink>
               </h6>
             </v-card-item>

@@ -1,87 +1,72 @@
 <template>
   <SideBar/>
   <NavBar/>
-  <v-main>
-<!--    <v-container-->
-<!--        class="fill-height pa-0 "-->
-<!--    >-->
-<!--          <v-responsive-->
-<!--              class="overflow-y-hidden fill-height"-->
-<!--              height="100%"-->
-<!--          >-->
-<!--            <v-card-->
-<!--                flat-->
-<!--                class="d-flex flex-column fill-height"-->
-<!--            >-->
-<!--              <v-card-title>-->
-<!--                Чат со всеми сотрудниками-->
-<!--              </v-card-title>-->
-<!--              <v-card-text class="flex-grow-1 overflow-y-auto">-->
-<!--                <div v-for="message in all_messages" v-bind:key="all_messages">-->
-<!--                  <div-->
-<!--                      :class="{ 'd-flex flex-row-reverse': this.user_id === message.user_id }"-->
-<!--                  >-->
-<!--                  <v-chip-->
-<!--                    :color="this.user_id === message.user_id ? 'primary' : ''"-->
-<!--                    dark-->
-<!--                    style="height:auto;white-space: normal;"-->
-<!--                    class="pa-4 mb-2"-->
-<!--                  >-->
-<!--                    {{ message.text }}-->
-<!--                    <v-avatar class="avatar" size="20px">-->
-<!--                      <v-img-->
-<!--                          :src='`http://127.0.0.1:8000/${avatar}`'-->
-<!--                          cover-->
-<!--                      ></v-img>-->
-<!--                    </v-avatar>-->
-<!--                  </v-chip>-->
-<!--                    <sub-->
-<!--                        class="ml-2"-->
-<!--                        style="font-size: 0.5rem;"-->
-<!--                    >{{ message.send_time.substr(11, 11) }}-->
-<!--                    </sub>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </v-card-text>-->
-<!--            </v-card>-->
-<!--          </v-responsive>-->
-<!--    </v-container>-->
-    <v-container class="fill-height">
-      <v-row class="fill-height pb-14" align="end">
-        <v-col>
+  <v-main style="background: #e7e7e7">
+      <v-card
+          id="element"
+          class="overflow-y-auto overflow-x-hidden element  align-center"
+          max-height="70vh"
+          max-width="75%"
+          style="display: block; margin-left: auto; margin-right: auto; margin-top: 50px; margin-bottom: -2px; border-radius: 10px 10px 0 0;"
+      >
+        <div id="element">
           <div v-for="(item, index) in all_messages" :key="index"
-               :class="['d-flex flex-row align-center my-2', item.user_id === this.user_id ? 'justify-end': null]">
-            <v-chip
-                :color="this.user_id === item.user_id ? 'primary' : ''"
-                dark
-                style="height:auto;white-space: normal;"
-                class="pa-4 mb-2"
-            >
-              <span v-if="item.user_id === this.user_id" class="blue--text mr-3">{{ item.text }}</span>
-            </v-chip>
-            <v-avatar size="36">
+               style="margin-left: 5px; margin-right: 5px"
+               :class="['d-flex flex-row align-center my-2', item.user_id === this.user_id ? 'justify-end': null]"
+          >
+            <v-avatar size="30" v-if="this.user_id !== item.user_id">
+              <v-img
+                  :src='`http://127.0.0.1:8000/${ item.user_avatar}`'
+                  cover
+              ></v-img>
+            </v-avatar>
+            <div style="display: flex; flex-direction: column">
+              <span  :style="[this.user_id === item.user_id ? 'display: inline-block; width: 100%; text-align: right; padding-right:10px' : 'display: inline-block; width: 100%; text-align: left; margin-left:15px', 'font-size: 13px', 'color: grey']"> {{item.user_name}}</span>
+              <v-chip
+                  :color="this.user_id === item.user_id ? 'success' : 'black'"
+                  dark
+                  style="margin-left: 7px; white-space: normal;"
+                  class="pa-4 mb-2"
+              >
+                <span  class="blue--text mr-3" style="padding-top: 3px; padding-bottom: 3px"> {{ item.text }}</span>
+              </v-chip>
+            </div>
+            <v-avatar size="36" v-if="this.user_id === item.user_id">
               <v-img
                   :src='`http://127.0.0.1:8000/${avatar}`'
                   cover
               ></v-img>
             </v-avatar>
           </div>
-        </v-col>
-      </v-row>
-    </v-container>
-    <v-footer fixed>
-      <v-container class="ma-0 pa-0">
-        <v-row no-gutters>
-          <v-col>
-            <div class="d-flex flex-row">
-              <v-text-field v-model="newMessage" placeholder="Введите сообщение" @keypress.enter="sendMessage()"></v-text-field>
-              <v-btn icon class="ml-4" @click="sendMessage()"><v-icon>mdi-send</v-icon></v-btn>
-            </div>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-footer>
+        </div>
+        <v-divider/>
+      </v-card>
+      <v-card
+          class="overflow-y-auto overflow-x-hidden element"
+          height="80px"
+          color="grey-lighten-3"
+          style="
+                 display: flex;
+                 margin-left: auto;
+                 margin-right: auto;
+                 align-items: center;
+                 justify-content: center;
+                 max-width: 75%;
+                 border-radius: 0 0 10px 10px;
+                 margin-bottom: 20px"
+      >
+        <input
+            class="message__input__field"
+            placeholder="Введите сообщение..."
+            :value="newMessage"
+            @input="newMessage=$event.target.value"
+            @submit.prevent="sendMessage"
+            @keyup.enter="sendMessage"
+        >
+        <v-icon size="30px" style="margin-left: 10px" icon="mdi-send" @click="sendMessage"/>
+      </v-card>
   </v-main>
+<!--  <Footer></Footer>-->
 </template>
 
 <script>
@@ -89,16 +74,18 @@ import NavBar from "@/components/NavBar.vue";
 import SideBar from "@/components/SideBar.vue";
 import {createSocket,sendMessage, joinSocket} from "@/ws/chat.ws";
 import {mapGetters} from "vuex";
-import {th} from "vuetify/locale";
 import axios from "axios";
+import Footer from "@/components/Footer.vue";
+
 export default {
   name: "Chat",
-  components: {SideBar, NavBar},
+  components: {Footer, SideBar, NavBar},
   data() {
     return{
       all_messages: '',
       newMessage: '',
       user_id: null,
+      user_info: null,
     }
   },
   setup() {
@@ -110,7 +97,7 @@ export default {
   },
   beforeMount() {
     this.user_id = Number(sessionStorage.getItem('user_id'))
-    console.log(this.user_id)
+    this.user_info = this.getUserInfo(this.user_id)
     axios.defaults.headers.common['Authorization'] = "Bearer " + this.$store.getters.JWT
     axios
         .get('/api/chat/get_messages')
@@ -123,6 +110,13 @@ export default {
       this.all_messages.push(data.message)
       console.log(this.all_messages)
     })
+    this.$watch('all_messages', function () {
+      this.$nextTick(() => {
+        let objDiv = document.getElementById("element");
+        console.log(objDiv.scrollHeight);
+        objDiv.scrollTop = objDiv.scrollHeight;
+      });
+    }, {deep: true})
   },
   unmounted() {
     this.socket.emit('leave', {
@@ -139,6 +133,8 @@ export default {
         return
       const data = {
         from: Number(this.user_id),
+        user_name: this.user_info.first_name,
+        user_avatar: this.user_info.avatar,
         type: 1,
         text: this.newMessage,
         send_time: send_time
@@ -146,10 +142,34 @@ export default {
       // console.log(data)
       sendMessage(this.socket, data)
       this.newMessage = ''
-    }
+    },
+    getUserInfo(user_id){
+      axios.defaults.headers.common['Authorization'] = "Bearer " + this.$store.getters.JWT
+      axios
+          .get('api/user/info/' + user_id + '/')
+          .then(response =>{
+            this.user_info = response.data
+          })
+    },
   }
 }
 </script>
 
 <style scoped>
+.element::-webkit-scrollbar {
+  width: 0;
+}
+</style>
+
+<style lang="scss">
+.message__input__field {
+  padding-left: 10px;
+  width: 70%;
+  height: 45px;
+  background: white;
+  border-radius: 8px;
+  &:focus {
+    outline: none;
+  }
+}
 </style>

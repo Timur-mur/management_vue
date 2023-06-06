@@ -25,19 +25,15 @@
       height="75"
   >
     <v-btn
-        class="mr-3"
+        size="40"
+        class="mr-3 b-icon"
         elevation="1"
         fab
         small
         @click="setDrawer(!drawer)"
     >
-      <v-icon v-if="value">
-        mdi-view-quilt
-      </v-icon>
-
-      <v-icon v-else>
-        mdi-dots-vertical
-      </v-icon>
+      <v-icon size="25px" style="color: darkgray" v-if="value" icon="mdi-view-quilt"></v-icon>
+      <v-icon size="25px" style="color: darkgray" v-else icon="mdi-dots-vertical"></v-icon>
     </v-btn>
 
     <v-toolbar-title
@@ -90,7 +86,28 @@ export default {
   },
 }
 </script>
-
 <style scoped>
+.b-icon {
+  background: white;
+  color: #ffffff;
+  margin: 2px 0 0 50px;
+  border-radius: 25px;
+  cursor: pointer;
+  display: inline-block;
+  font: 24px/20px Arial, sans-serif;
+  height: 24px;
+  padding: 1px;
+  text-align: center;
+  width: 24px;
+}
+.b-icon:hover {
+  border-color: white !important;
+}
+</style>
 
+<style lang="sass">
+#app-bar
+  .v-badge__badge
+    font-size: 9px
+    padding: 5px 6px
 </style>

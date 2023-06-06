@@ -8,7 +8,6 @@ export default createStore({
   plugins: [createPersistedState()],
   state:{
     drawer: null,
-    barColor: 'rgba(0, 0, 0, .8), rgba(0, 0, 0, .8)',
   },
   mutations:{
     SET_DRAWER (state, payload) {

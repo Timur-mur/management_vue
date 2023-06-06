@@ -21,10 +21,8 @@
   <v-navigation-drawer
       id="core-navigation-drawer"
       v-model="drawer"
-      :dark="barColor !== 'rgba(228, 226, 226, 1), rgba(255, 255, 255, 0.7)'"
+      color="black"
       :expand-on-hover="expandOnHover"
-      :right="$vuetify.rtl"
-      :src="barImage"
       mobile-break-point="960"
       app
       width="260"
@@ -44,65 +42,42 @@
         nav
     >
       <v-list-item>
-        <v-list-item-avatar
-            class="align-self-center"
+        <v-list-item
             color="white"
-            contain
+            :prepend-avatar="'http://127.0.0.1:8000/' + avatar"
         >
-          <v-img
-              src="https://demos.creative-tim.com/vuetify-material-dashboard/favicon.ico"
-              max-height="30"
-          />
-        </v-list-item-avatar>
-
-        <v-list-item-content>
-          <v-list-item-title
-              class="display-1"
-              v-text="profile.title"
-          />
-        </v-list-item-content>
+          <v-list-item-content>
+            <v-list-item-title
+                class="display-1 text-body-1"
+                v-text="first_name+' '+last_name"
+                style="color: white"
+            />
+          </v-list-item-content>
+        </v-list-item>
       </v-list-item>
     </v-list>
 
-    <v-divider class="mb-2" />
+    <v-divider class="mb-4" style="color: white"></v-divider>
 
     <v-list
         expand
         nav
     >
-      <!-- Style cascading bug  -->
-      <!-- https://github.com/vuetifyjs/vuetify/pull/8574 -->
       <div />
-
-      <template v-for="(item, i) in computedItems">
-        <base-item-group
-            v-if="item.children"
-            :key="`group-${i}`"
-            :item="item"
-        >
-          <!--  -->
-        </base-item-group>
-
-        <base-item
-            v-else
-            :key="`item-${i}`"
-            :item="item"
-        />
-      </template>
+      <v-list-item class="text-subtitle-1 font-weight-light" style="color: white;" v-if="role === 1" href="/admin_page"><v-icon style="margin-right: 20px" icon="mdi-information"></v-icon> Администратор </v-list-item>
+      <v-list-item class="text-subtitle-1 font-weight-light" style="color: white;" href="/all_tasks"><v-icon style="margin-right: 20px" icon="mdi-clipboard-outline"></v-icon> Все задачи</v-list-item>
+      <v-list-item class="text-subtitle-1 font-weight-light" style="color: white;" href="/executor_tasks"><v-icon style="margin-right: 20px" icon="mdi-account"></v-icon> Мои задачи</v-list-item>
+      <v-list-item class="text-subtitle-1 font-weight-light" style="color: white;" href="/chat"><v-icon style="margin-right: 20px" icon="mdi-chat"></v-icon> Мессенджер</v-list-item>
 
       <!-- Style cascading bug  -->
       <!-- https://github.com/vuetifyjs/vuetify/pull/8574 -->
       <div />
     </v-list>
-
     <template v-slot:append>
-      <base-item
-          :item="{
-          title: $t('upgrade'),
-          icon: 'mdi-package-up',
-          to: '/upgrade',
-        }"
-      />
+      <v-list-item class="text-subtitle-1" icon v-if="isAuthenticated" @click="this.LogOut()">
+        <v-icon icon="mdi-export" style="margin-right: 20px"></v-icon>
+        Выйти
+      </v-list-item>
     </template>
   </v-navigation-drawer>
 
@@ -117,12 +92,24 @@
 <script>
 import axios from "axios";
 import {th} from "vuetify/locale";
-import {mapGetters} from "vuex";
+import {mapGetters, mapState} from "vuex";
 
 export default {
   name: "SideBar",
+  data(){
+    return{
+      expandOnHover: false,
+    }
+  },
   computed: {
-    ...mapGetters(['first_name','last_name', 'role', 'avatar']),
+    ...mapGetters({
+      first_name: "first_name",
+      last_name: "last_name",
+      role: "role",
+      avatar: "avatar",
+      isAuthenticated: "isAuthenticated",
+      email: "email",
+    }),
     drawer: {
       get () {
         return this.$store.state.drawer
@@ -131,10 +118,43 @@ export default {
         this.$store.commit('SET_DRAWER', val)
       },
     },
+  },
+  methods:{
+    LogOut(){
+      this.$store.commit('removeToken')
+      this.$router.push('/log_in')
+    },
   }
 }
 </script>
+<style lang="sass">
 
-<style scoped>
+#core-navigation-drawer
+  .v-list-group__header.v-list-item--active:before
+    opacity: .24
+
+  .v-list-item
+    &__icon--text,
+    &__icon:first-child
+      justify-content: center
+      text-align: center
+      width: 20px
+
+  .v-list--dense
+    .v-list-item
+      &__icon--text,
+      &__icon:first-child
+        margin-top: 10px
+
+  .v-list-group--sub-group
+    .v-list-group__header
+
+      .v-list-item__icon--text
+        margin-top: 19px
+        order: 0
+
+      .v-list-group__header__prepend-icon
+        order: 2
+
 
 </style>

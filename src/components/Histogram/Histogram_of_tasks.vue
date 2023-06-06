@@ -1,11 +1,21 @@
 <template>
-  <v-card elevation="10" class="withbg" max-width="70%" style="margin-left: 30px; margin-top: 30px">
+  <v-card elevation="10" style="display: block; margin-left: auto; margin-right: auto; margin-top: 50px; margin-bottom: 20px" max-width="85%">
     <v-card-item>
-      <div class="d-sm-flex align-center justify-space-between pt-sm-2">
-        <div><v-card-title class="text-h5">Выполненные задачи за месяц</v-card-title></div>
-      </div>
+      <v-card-title class="text-subtitle-3 font-weight-light d-flex align-center">
+        <v-sheet
+            color="black"
+            dark
+            max-height="110"
+            width="auto"
+            class="px-5 py-3"
+            style="margin-right: 20px; border-radius: 8px"
+        >
+          <v-icon size="25" icon="mdi-poll"></v-icon>
+        </v-sheet>
+        Выполненные задачи за месяц
+      </v-card-title>
       <div class="mt-6">
-        <apexchart type="bar" height="370px" :options="options" :series="series">
+        <apexchart type="bar" height="370px"  :options="options" :series="series">
         </apexchart>
       </div>
     </v-card-item>
@@ -16,7 +26,6 @@
 
 
 import axios from "axios";
-import {toRaw} from "vue";
 
 export default {
   name: "Histogram_of_tasks",
@@ -24,10 +33,13 @@ export default {
     return{
       options: {
         chart: {
-          id: 'vuechart-example'
+          id: 'vuechart-example',
+        },
+        fill:{
+          colors: ['#4CAF50']
         },
         plotOptions: {
-          bar: { borderRadius: [8] },
+          bar: { borderRadius: [6] },
         },
         xaxis: {
           categories: ["2023-06-02", "2023-06-03", "2023-06-04", "2023-06-05", "2023-06-06", "2023-06-07", "2023-06-08", "2023-06-09", "2023-06-10", "2023-06-11", "2023-06-12", "2023-06-13", "2023-06-14", "2023-06-15", "2023-06-16", "2023-06-17"]

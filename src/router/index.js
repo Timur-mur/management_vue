@@ -6,23 +6,22 @@ import EmailVerifPage from "@/views/EmailVerifPage.vue";
 import Activate from "@/views/Activate.vue";
 import LogInPage from "@/views/LogInPage.vue";
 import FillUserInfo from "@/views/FillUserInfo.vue";
-import AllTasks from "@/views/AllTasks.vue";
 import ExecutorTasks from "@/views/ExecutorTasks.vue";
 import AdminPage from "@/views/AdminPage.vue";
 import Chat from "@/views/Chat.vue";
 import TasksComponent from "@/views/TasksComponent.vue";
 const routes = [
-  {path: '/', name: 'home', component: Company},
-  {path: '/:pathMatch(.*)*', name: 'Error', component: PageNotFound},
-  {path: '/registration', name: 'registration', component: Registration},
-  {path: '/activate/:uid/:token', name: 'activate', component: Activate},
-  {path: '/email_send', name: 'email_send', component: EmailVerifPage},
-  {path: '/log_in', name: 'LogInPage', component: LogInPage},
-  {path: '/fill_user_info', name: 'FillUserInfo', component: FillUserInfo},
-  {path: '/all_tasks', name: 'AllTasks', component: TasksComponent},
-  {path: '/executor_tasks', name: 'executor_Tasks', component: ExecutorTasks},
-  {path: '/admin_page', name: 'Admin_page', component: AdminPage},
-  {path: '/chat', name: 'Chat', component: Chat}
+  {path: '/', name: 'Werth', component: Company},
+  {path: '/:pathMatch(.*)*', name: 'Страница не найдена', component: PageNotFound},
+  {path: '/registration', name: 'Регистрация', component: Registration},
+  {path: '/activate/:uid/:token', name: 'Активация', component: Activate},
+  {path: '/email_send', name: 'Имейл', component: EmailVerifPage},
+  {path: '/log_in', name: 'Вход', component: LogInPage},
+  {path: '/fill_user_info', name: 'Информация о пользователе', component: FillUserInfo},
+  {path: '/all_tasks', name: 'Все задания', component: TasksComponent},
+  {path: '/executor_tasks', name: 'Мои задания', component: ExecutorTasks},
+  {path: '/admin_page', name: 'Администратор', component: AdminPage},
+  {path: '/chat', name: 'Чат со всеми сотрудниками', component: Chat}
 ]
 
 const router = createRouter({
